@@ -1,0 +1,74 @@
+html {
+    font-size: 100%;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+body {
+    vertical-align: top;
+}
+
+#content {
+    display: inline-block;
+    border: 2px solid black;
+    width: 14%;
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    transform: translate(4%, 70%);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 10px 10px;
+    padding: 5px;
+}
+
+#canvas {
+    border: 2px solid black;
+    display: inline-block;
+    width: 70%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#properties {
+    display: none;
+    border: 2px solid black;
+    width: 14%;
+    position: absolute;
+    top: 0%;
+    left: 85%;
+    transform: translate(2.5%, 95%);
+    padding: 5px;
+}
+
+.property {
+    display: block;
+}
+
+.property > input {
+    display: inline-block;
+    width: 45%;
+    height: 20px;
+}
+
+.property > label {
+    display: inline-block;
+    width: 50%;
+    height: 20px;
+    text-align: right;
+    margin-right: 5px;
+}
+
+#applyProps {
+    align-self: center;
+}

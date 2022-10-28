@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Home</title>
+        <script
+            type="text/javascript"
+            src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+            defer
+        ></script>
+        <script type="text/javascript" src="./js/jcanvas.js" defer></script>
+        <script type="text/javascript" src="./js/ButtonEvents.js" defer></script>
+        <link rel="stylesheet" href="./css/style.css" />
+    </head>
+    <body>
+        <div id="page">
+            <div id="content">
+                <!-- add images to all of the buttons -->
+                <button id="line" onclick="drawLine()">Line</button>
+                <button id="ellipse" onclick="drawEllipseClicked()">Ellipse</button>
+                <button id="rectangle" onclick="drawRectangleClicked()">Rectangle</button>
+                <button id="triangle" onclick="drawTriangle()">Triangle</button>
+                <button id="textBox" onclick="drawTextClicked()">Text Box</button>
+                <input
+                    id="imageUpload"
+                    type="file"
+                    name="profile_photo"
+                    placeholder="Photo"
+                    required=""
+                    capture
+                />
+                <button id="clear" onclick="clearCanvas()">Clear</button>
+                <button id="saveImage" onclick="saveImageClick()">Save Image</button>
+                <a id="container" style="display: none"></a>
+            </div>
+            <canvas id="canvas" width="1344" height="756">
+                Your browser does not support the canvas tag
+            </canvas>
+            <div id="properties">
+                <form>
+                    <div class="propertySection" id="generalProperties">
+                        <div class="property" id="xPos">
+                            <label for="xPosID">X:</label>
+                            <input type="number" name="X" id="xPosID" />
+                        </div>
+                        <div class="property" id="yPos">
+                            <label for="yPosID">Y:</label>
+                            <input type="number" name="Y" id="yPosID" />
+                        </div>
+                        <div class="property" id="width">
+                            <label for="widthID">Width:</label>
+                            <input type="number" name="Width" id="widthID" />
+                        </div>
+                        <div class="property" id="height">
+                            <label for="heightID">Height:</label>
+                            <input type="number" name="Height" id="heightID" />
+                        </div>
+                        <div class="property" id="rotate">
+                            <label for="rotateID">Rotate:</label>
+                            <input type="number" name="Rotate" id="rotateID" />
+                        </div>
+                        <div class="property" id="borderWidth">
+                            <label for="borderWidthID">Border Width:</label>
+                            <input type="number" name="borderWidth" id="borderWidthID" />
+                        </div>
+                        <div class="property" id="borderColor">
+                            <label for="borderColorID">Border Color:</label>
+                            <input type="color" name="borderColor" id="borderColorID" />
+                        </div>
+                        <div class="property" id="fillColor">
+                            <label for="fillColorID">Fill Color:</label>
+                            <input type="color" name="fillColor" id="fillColorID" />
+                        </div>
+                    </div>
+                    <div class="propertySection" id="textProperties">
+                        <br />
+                        <div class="property" id="text">
+                            <label for="textID">Text:</label>
+                            <input type="text" name="Text" id="textID" />
+                        </div>
+                        <div class="property" id="fontFamily">
+                            <label for="fontFamilyID">Font Family:</label>
+                            <input type="text" name="FontFamily" id="fontFamilyID" />
+                        </div>
+                        <div class="property" id="fontSize">
+                            <label for="fontSizeID">Font Size:</label>
+                            <input type="text" name="FontSize" id="fontSizeID" />
+                        </div>
+                    </div>
+                    <div class="propertySection" id="polygonProperties"></div>
+                    <div class="propertySection" id="lineProperties"></div>
+                </form>
+                <button id="applyProps" onclick="applyPropertiesClicked()">Apply</button>
+                <button id="applyProps" onclick="deleteLayerClicked()">Delete</button>
+            </div>
+        </div>
+    </body>
+</html>
