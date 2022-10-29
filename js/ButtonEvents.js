@@ -42,6 +42,36 @@ function drawLine(canvasId) {
     ctx.stroke();
 }
 
+function clickUpload() {
+    $("#imageUpload").click();
+}
+
+function drawImageClicked() {
+    let imageInput = $("#imageUpload")[0];
+    if (imageInput.files && imageInput.files[0]) {
+        $("canvas").drawImage({
+            layer: true,
+            draggable: true,
+            bringToFront: true,
+            name: "Image" + layerNumberIncrement++,
+            source: URL.createObjectURL(imageInput.files[0]),
+            x: 100,
+            y: 100,
+            width: 200,
+            height: 200,
+            click: function (layer) {
+                displayProperties(layer, "image");
+            },
+            mouseover: function (layer) {
+                $(this).css("cursor", "pointer");
+            },
+            mouseout: function (layer) {
+                $(this).css("cursor", "default");
+            },
+        });
+    }
+}
+
 function drawRectangleClicked() {
     $("canvas").drawRect({
         layer: true,
@@ -54,7 +84,7 @@ function drawRectangleClicked() {
         width: 100,
         height: 50,
         click: function (layer) {
-            displayProperties(layer, false);
+            displayProperties(layer, "shape");
         },
         mouseover: function (layer) {
             $(this).css("cursor", "pointer");
@@ -79,7 +109,7 @@ function drawEllipseClicked() {
         width: 100,
         height: 100,
         click: function (layer) {
-            displayProperties(layer, false);
+            displayProperties(layer, "shape");
         },
         mouseover: function (layer) {
             $(this).css("cursor", "pointer");
@@ -102,9 +132,9 @@ function drawTextClicked() {
         strokeWidth: 0,
         fontSize: 24,
         fontFamily: "Arial, sans-serif",
-        text: "Click to add text",
+        text: "Insert text",
         click: function (layer) {
-            displayProperties(layer, true);
+            displayProperties(layer, "text");
         },
         mouseover: function (layer) {
             $(this).css("cursor", "pointer");
@@ -117,8 +147,12 @@ function drawTextClicked() {
 
 //Ask user to confirm and then clear the canvas
 function clearCanvas() {
-    if (confirm("Are you sure you want to clear the canvas?"))
+    if (confirm("Are you sure you want to clear the canvas?")) {
         $("canvas").removeLayers().drawLayers();
+        $("#properties").css("display", "none");
+        selectedIndex = 0;
+        layerNumberIncrement = 0;
+    }
 }
 
 //Will let the user enter a name for the image and then save it as a .png file
@@ -135,17 +169,33 @@ function saveImageClick() {
     }
 }
 
-function displayProperties(layer, isText) {
+//layerType is used to determine which properties to display in the properties window
+function displayProperties(layer, layerType) {
     selectedIndex = layer.index;
     $("#properties").css("display", "inline-block");
 
-    if (isText) {
-        $("#text").css("display", "block");
+    if (layerType == "text") {
+        $("#textProperties").css("display", "block");
+        $("#width").css("display", "none");
+        $("#height").css("display", "none");
+
         $("#textID").val(layer.text);
         $("#fontFamilyID").val(layer.fontFamily);
         $("#fontSizeID").val(layer.fontSize);
     } else {
-        $("#text").css("display", "none");
+        $("#textProperties").css("display", "none");
+        $("#width").css("display", "block");
+        $("#height").css("display", "block");
+    }
+
+    if (layerType !== "image") {
+        $("#nonImageProperties").css("display", "block");
+
+        $("#borderWidthID").val(layer.strokeWidth);
+        $("#borderColorID").val(expandShortHex(layer.strokeStyle));
+        $("#fillColorID").val(expandShortHex(layer.fillStyle));
+    } else {
+        $("#nonImageProperties").css("display", "none");
     }
 
     $("#xPosID").val(layer.x);
@@ -153,9 +203,6 @@ function displayProperties(layer, isText) {
     $("#widthID").val(layer.width);
     $("#heightID").val(layer.height);
     $("#rotateID").val(layer.rotate);
-    $("#borderWidthID").val(layer.strokeWidth);
-    $("#borderColorID").val(expandShortHex(layer.strokeStyle));
-    $("#fillColorID").val(expandShortHex(layer.fillStyle));
 }
 
 function applyPropertiesClicked() {
@@ -180,5 +227,6 @@ function deleteLayerClicked() {
     if (confirm("Are you sure you want to delete this layer?")) {
         $("canvas").removeLayer(selectedIndex).drawLayers();
         $("#properties").css("display", "none");
+        selectedIndex = 0;
     }
 }

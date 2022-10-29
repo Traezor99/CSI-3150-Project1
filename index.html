@@ -16,13 +16,12 @@
     </head>
     <body>
         <div id="page">
-            <div id="content">
+            <div class="column" id="content">
                 <!-- add images to all of the buttons -->
-                <button id="line" onclick="drawLine()">Line</button>
                 <button id="ellipse" onclick="drawEllipseClicked()">Ellipse</button>
                 <button id="rectangle" onclick="drawRectangleClicked()">Rectangle</button>
-                <button id="triangle" onclick="drawTriangle()">Triangle</button>
                 <button id="textBox" onclick="drawTextClicked()">Text Box</button>
+                <button id="image" onclick="clickUpload()">Image</button>
                 <input
                     id="imageUpload"
                     type="file"
@@ -30,15 +29,17 @@
                     placeholder="Photo"
                     required=""
                     capture
+                    style="display: none"
+                    onchange="drawImageClicked()"
                 />
                 <button id="clear" onclick="clearCanvas()">Clear</button>
-                <button id="saveImage" onclick="saveImageClick()">Save Image</button>
+                <button id="saveImage" onclick="saveImageClick()">Save Canvas</button>
                 <a id="container" style="display: none"></a>
             </div>
-            <canvas id="canvas" width="1344" height="756">
+            <canvas class="column" id="canvas" width="1344" height="756">
                 Your browser does not support the canvas tag
             </canvas>
-            <div id="properties">
+            <div class="column" id="properties">
                 <form>
                     <div class="propertySection" id="generalProperties">
                         <div class="property" id="xPos">
@@ -61,6 +62,8 @@
                             <label for="rotateID">Rotate:</label>
                             <input type="number" name="Rotate" id="rotateID" />
                         </div>
+                    </div>
+                    <div class="propertySection" id="nonImageProperties">
                         <div class="property" id="borderWidth">
                             <label for="borderWidthID">Border Width:</label>
                             <input type="number" name="borderWidth" id="borderWidthID" />
@@ -75,7 +78,6 @@
                         </div>
                     </div>
                     <div class="propertySection" id="textProperties">
-                        <br />
                         <div class="property" id="text">
                             <label for="textID">Text:</label>
                             <input type="text" name="Text" id="textID" />
@@ -89,8 +91,6 @@
                             <input type="text" name="FontSize" id="fontSizeID" />
                         </div>
                     </div>
-                    <div class="propertySection" id="polygonProperties"></div>
-                    <div class="propertySection" id="lineProperties"></div>
                 </form>
                 <button id="applyProps" onclick="applyPropertiesClicked()">Apply</button>
                 <button id="applyProps" onclick="deleteLayerClicked()">Delete</button>
