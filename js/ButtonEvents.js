@@ -1,11 +1,6 @@
 var selectedIndex = 0;
 var layerNumberIncrement = 0;
 
-//From https://stackoverflow.com/a/5624139
-function rgbToHex(r, g, b) {
-    return "#" + ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
-}
-
 //Input must be a 3 digit hex string, including the # at the start
 function expandShortHex(shortHex) {
     let hexChars = shortHex.replace("#", "").split("");
@@ -14,32 +9,6 @@ function expandShortHex(shortHex) {
             "#" + hexChars[0] + hexChars[0] + hexChars[1] + hexChars[1] + hexChars[2] + hexChars[2]
         );
     else return shortHex;
-}
-
-//From https://stackoverflow.com/a/5624139
-function hexToRgb(hex) {
-    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
-    let shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
-    hex = hex.replace(shorthandRegex, function (m, r, g, b) {
-        return r + r + g + g + b + b;
-    });
-
-    var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
-    return result
-        ? {
-              r: parseInt(result[1], 16),
-              g: parseInt(result[2], 16),
-              b: parseInt(result[3], 16),
-          }
-        : null;
-}
-
-function drawLine(canvasId) {
-    let c = document.getElementById(canvasId);
-    let ctx = c.getContext("2d");
-    ctx.moveTo(0, 0);
-    ctx.lineTo(200, 100);
-    ctx.stroke();
 }
 
 function clickUpload() {
@@ -176,6 +145,7 @@ function displayProperties(layer, layerType) {
     selectedIndex = layer.index;
     $("#properties").css("display", "inline-block");
 
+    //Display and set text properties if the selected layer is a text box
     if (layerType == "text") {
         $("#textProperties").css("display", "block");
         $("#width").css("display", "none");
@@ -190,6 +160,7 @@ function displayProperties(layer, layerType) {
         $("#height").css("display", "block");
     }
 
+    //Unless the layer is an image, display and set the border and fill color options
     if (layerType !== "image") {
         $("#nonImageProperties").css("display", "block");
 

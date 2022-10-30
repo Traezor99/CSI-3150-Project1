@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Home</title>
-        <script 
+        <script
             type="text/javascript"
             src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"
             defer
@@ -16,8 +16,8 @@
     </head>
     <body>
         <div id="page">
+            <!--The buttons to add things to the canvas-->
             <div class="column" id="content">
-                <!-- add images to all of the buttons -->
                 <button id="ellipse" onclick="drawEllipseClicked()">Ellipse</button>
                 <button id="rectangle" onclick="drawRectangleClicked()">Rectangle</button>
                 <button id="textBox" onclick="drawTextClicked()">Text Box</button>
@@ -36,11 +36,14 @@
                 <button id="saveImage" onclick="saveImageClick()">Save Canvas</button>
                 <a id="container" style="display: none"></a>
             </div>
+            <!--The canvas-->
             <canvas class="column" id="canvas" width="1344" height="756">
                 Your browser does not support the canvas tag
             </canvas>
+            <!--The various properties for things on the canvas-->
             <div class="column" id="properties">
                 <form>
+                    <!--General properties-->
                     <div class="propertySection" id="generalProperties">
                         <div class="property" id="xPos">
                             <label for="xPosID">X:</label>
@@ -63,6 +66,7 @@
                             <input type="number" name="Rotate" id="rotateID" />
                         </div>
                     </div>
+                    <!--Properties for everything except uploaded images-->
                     <div class="propertySection" id="nonImageProperties">
                         <div class="property" id="borderWidth">
                             <label for="borderWidthID">Border Width:</label>
@@ -77,6 +81,7 @@
                             <input type="color" name="fillColor" id="fillColorID" />
                         </div>
                     </div>
+                    <!--Text box properties-->
                     <div class="propertySection" id="textProperties">
                         <div class="property" id="text">
                             <label for="textID">Text:</label>
